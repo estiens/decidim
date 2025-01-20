@@ -50,7 +50,7 @@ jobs:
           - decidim-system
           - decidim-templates
           - decidim-verifications
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: ${{ matrix.working-directory }}
     if: "!startsWith(github.head_ref, 'chore/l10n')"
     timeout-minutes: 60
@@ -62,7 +62,7 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
           bundler-cache: true
-      - run: bundle exec brakeman --rails6 --force-scan .
+      - run: bundle exec brakeman --rails7 --force-scan .
         name: Scanning Security issues on module
         working-directory: ${{ matrix.working-directory }}
         shell: "bash"

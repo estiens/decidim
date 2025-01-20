@@ -9,19 +9,19 @@ module Decidim
       class ParticipatoryProcessForm < Form
         include TranslatableAttributes
         include Decidim::HasUploadValidations
-        include Decidim::Admin::HasTaxonomyFormAttributes
+        include Decidim::HasTaxonomyFormAttributes
 
         mimic :participatory_process
 
-        translatable_attribute :announcement, String
-        translatable_attribute :description, String
+        translatable_attribute :announcement, Decidim::Attributes::RichText
+        translatable_attribute :description, Decidim::Attributes::RichText
         translatable_attribute :developer_group, String
         translatable_attribute :local_area, String
         translatable_attribute :meta_scope, String
         translatable_attribute :participatory_scope, String
         translatable_attribute :participatory_structure, String
         translatable_attribute :subtitle, String
-        translatable_attribute :short_description, String
+        translatable_attribute :short_description, Decidim::Attributes::RichText
         translatable_attribute :title, String
         translatable_attribute :target, String
 
@@ -38,7 +38,6 @@ module Decidim
         attribute :private_space, Boolean
         attribute :promoted, Boolean
         attribute :scopes_enabled, Boolean
-        attribute :participatory_process_type_id, Integer
 
         attribute :end_date, Decidim::Attributes::LocalizedDate
         attribute :start_date, Decidim::Attributes::LocalizedDate
@@ -63,7 +62,6 @@ module Decidim
         def map_model(model)
           self.scope_id = model.decidim_scope_id
           self.participatory_process_group_id = model.decidim_participatory_process_group_id
-          self.participatory_process_type_id = model.decidim_participatory_process_type_id
           self.related_process_ids = model.linked_participatory_space_resources(:participatory_process, "related_processes").pluck(:id)
           @processes = Decidim::ParticipatoryProcess.where(organization: model.organization).where.not(id: model.id)
         end
@@ -88,25 +86,11 @@ module Decidim
           Decidim::ParticipatoryProcessGroup.find_by(id: participatory_process_group_id)
         end
 
-        def participatory_process_type
-          Decidim::ParticipatoryProcessType.find_by(id: participatory_process_type_id)
-        end
-
         def processes
           @processes ||= Decidim::ParticipatoryProcess.where(organization: current_organization)
         end
 
-        def participatory_process_types_for_select
-          @participatory_process_types_for_select ||= participatory_process_types.map do |type|
-            [translated_attribute(type.title), type.id]
-          end
-        end
-
         private
-
-        def participatory_process_types
-          Decidim::ParticipatoryProcessType.where(organization: current_organization)
-        end
 
         def organization_participatory_processes
           OrganizationParticipatoryProcesses.new(current_organization).query

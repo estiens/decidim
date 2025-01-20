@@ -8,8 +8,6 @@ da:
         description: Beskrivelse
         end_date: Slutdato
         progress: Fremskridt
-        project_ids: Inkluderede projekter
-        proposals: Inkluderede projekter
         start_date: Start dato
         title: Titel
         updated_at: Opdateret
@@ -115,15 +113,8 @@ da:
           results_count:
             one: 1 resultat
             other: "%{count} resultater"
-        filters:
-          all: Alle
-        home:
-          categories_label: Kategorier
-          subcategories_label: Underkategorier
         home_header:
           global_status: Samlet gennemførelsesstatus
-        nav_breadcrumb:
-          global: Samlet udførelse
         search:
           search: Søg efter handlinger
         show:

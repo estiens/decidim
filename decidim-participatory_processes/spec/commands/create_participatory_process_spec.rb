@@ -8,7 +8,6 @@ module Decidim::ParticipatoryProcesses
 
     let(:organization) { create(:organization) }
     let(:participatory_process_group) { create(:participatory_process_group, organization:) }
-    let(:participatory_process_type) { create(:participatory_process_type, organization:) }
     let(:scope) { create(:scope, organization:) }
     let(:area) { create(:area, organization:) }
     let(:current_user) { create(:user, :admin, organization:) }
@@ -17,10 +16,7 @@ module Decidim::ParticipatoryProcesses
     let(:weight) { 1 }
     let(:hero_image) { nil }
     let(:taxonomizations) do
-      [
-        build(:taxonomization, taxonomy: create(:taxonomy, :with_parent, organization:), taxonomizable: nil),
-        build(:taxonomization, taxonomy: create(:taxonomy, :with_parent, organization:), taxonomizable: nil)
-      ]
+      2.times.map { build(:taxonomization, taxonomy: create(:taxonomy, :with_parent, organization:), taxonomizable: nil) }
     end
 
     let(:form) do
@@ -56,7 +52,6 @@ module Decidim::ParticipatoryProcesses
         errors:,
         related_process_ids:,
         participatory_process_group:,
-        participatory_process_type:,
         announcement: { en: "message" }
       )
     end

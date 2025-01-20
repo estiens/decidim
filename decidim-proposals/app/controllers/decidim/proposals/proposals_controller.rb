@@ -39,17 +39,15 @@ module Decidim
                        .published
                        .not_hidden
                        .only_amendables
-                       .includes(:category, :scope, :attachments, :coauthorships)
+                       .includes(:taxonomies, :attachments, :coauthorships)
                        .order(position: :asc)
           render "decidim/proposals/proposals/participatory_texts/participatory_text"
         else
-          @base_query = search
-                        .result
-                        .published
-                        .not_hidden
+          @proposals = search.result
 
-          @proposals = @base_query.includes(:component, :coauthorships, :attachments)
-          @all_geocoded_proposals = @base_query.geocoded
+          @proposals = reorder(@proposals)
+          @proposals = paginate(@proposals)
+          @proposals = @proposals.includes(:component, :coauthorships, :attachments)
 
           @voted_proposals = if current_user
                                ProposalVote.where(
@@ -59,8 +57,6 @@ module Decidim
                              else
                                []
                              end
-          @proposals = reorder(@proposals)
-          @proposals = paginate(@proposals)
         end
       end
 
@@ -206,9 +202,8 @@ module Decidim
           search_text_cont: "",
           with_any_origin: nil,
           activity: "all",
-          with_any_category: nil,
+          with_any_taxonomies: nil,
           with_any_state: default_states,
-          with_any_scope: nil,
           related_to: "",
           type: "all"
         }

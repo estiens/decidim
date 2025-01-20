@@ -222,7 +222,7 @@ de:
         committee_requests:
           index:
             approve: Genehmigen
-            confirm_revoke: Sind Sie sicher?
+            confirm_revoke: Sind Sie sich sicher?
             invite_to_committee_help: Teilen Sie diesen Link, um andere Teilnehmer zum Unterstützungskomitee einzuladen.
             no_members_yet: Es gibt keine Mitglieder im Unterstützungskomitee.
             revoke: Widerrufen
@@ -241,6 +241,10 @@ de:
             alert_html: "<p>Sie müssen mindestens einen Initiativentyp erstellen, damit die Teilnehmenden Initiativen erstellen können.</p><p> %{link}</p>"
             button: Neuer Initiativentyp
         initiatives:
+          accept:
+            success: Die Initiative wurde erfolgreich akzeptiert.
+          discard:
+            success: Die Initiative wurde erfolgreich gelöscht.
           edit:
             accept: Initiative akzeptieren
             confirm: Sind Sie sich sicher?
@@ -264,6 +268,12 @@ de:
             edit: Bearbeiten
             new: Neu
             photos: Fotos
+          publish:
+            success: Die Initiative wurde erfolgreich veröffentlicht.
+          reject:
+            success: Die Initiative wurde erfolgreich zurückgewiesen.
+          unpublish:
+            success: Die Veröffentlichung der Initiative wurde erfolgreich zurückgezogen.
           update:
             error: Beim Aktualisieren der Initiative ist ein Problem aufgetreten.
             success: Die Initiative wurde erfolgreich aktualisiert.
@@ -519,9 +529,7 @@ de:
           phone_number: Telefonnummer
           place_date: Ort, Datum
           postal_code: Postleitzahl
-          print: Drucken
           province: Bundesland
-          section: 'Falls von der Organisation angefragt, drucken Sie bitte dieses Formular aus und füllen Sie es aus, um dort einzureichen, wo angegeben wurde:'
           signature: Unterschrift
         result:
           answer_title: Diese Initiative wurde beantwortet.
@@ -543,7 +551,6 @@ de:
           other: " Signaturen"
         vote_cabin:
           already_voted: Schon unterschrieben
-          verification_required: Bestätigen Sie Ihr Konto, um die Initiative zu unterzeichnen
           vote: Signieren
           votes_blocked: Die Anmeldung ist deaktiviert
         votes_count:
@@ -596,7 +603,6 @@ de:
           comment: Kommentar
       initiatives_type:
         actions:
-          create: Erstellen
           title: Aktionen
           vote: Abstimmung
   layouts:

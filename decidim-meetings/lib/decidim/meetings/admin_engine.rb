@@ -18,13 +18,20 @@ module Decidim
           member do
             put :publish
             put :unpublish
+            patch :soft_delete
+            patch :restore
           end
           resources :meeting_closes, only: [:edit, :update] do
             get :proposals_picker, on: :collection
           end
           resource :registrations, only: [:edit, :update] do
             resources :invites, only: [:index, :create]
-            resource :form, only: [:edit, :update], controller: "registration_form"
+            resource :form, only: [:edit, :update], controller: "registration_form" do
+              member do
+                get :edit_questions
+                patch :update_questions
+              end
+            end
             collection do
               get :export
               post :validate_registration_code
@@ -35,6 +42,7 @@ module Decidim
           resources :attachments, except: [:show]
           resources :copies, controller: "meeting_copies", only: [:new, :create]
           resource :poll, only: [:edit, :update], controller: "meetings_poll"
+          get :manage_trash, on: :collection
         end
         root to: "meetings#index"
       end

@@ -8,8 +8,6 @@ sk:
         description: Popis
         end_date: Koniec
         progress: Postup
-        project_ids: Zahrnuté projekty
-        proposals: Zahrnuté návrhy
         start_date: Začiatok 
         title: Názov
         updated_at: Aktualizované
@@ -122,15 +120,8 @@ sk:
             few: "%{count} výsledkov"
             many: "%{count} výsledkov"
             other: "%{count} výsledkov"
-        filters:
-          all: Všetko
-        home:
-          categories_label: Kategórie
-          subcategories_label: Podkategórie
         home_header:
           global_status: Globálny stav vykonávania
-        nav_breadcrumb:
-          global: Globálne vykonanie
         search:
           search: Hľadať akcie
         show:

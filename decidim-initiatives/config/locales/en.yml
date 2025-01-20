@@ -137,22 +137,27 @@ en:
           name: Initiative type
         initiatives_votes:
           fields:
+            date_and_time: Date and time
             date_of_birth: Date of birth
             document_number: Document number
             hash: Hash
             initiative_end_date: End date
             initiative_id: Initiative ID
+            initiative_scope: Scope
             initiative_signatures_count: Number of signatures
             initiative_start_date: Start date
             initiative_title: Initiative title
             name_and_surname: Name and surname
+            nickname: Nickname
             postal_code: Postal code
-            scope: Scope
-            time_and_date: Time and date
+            signature_count: Signature count
             timestamp: Timestamp
       titles:
         initiatives: Initiatives
         initiatives_types: Initiative types
+    download_your_data:
+      show:
+        initiatives: Initiatives export
     events:
       initiatives:
         admin:
@@ -438,10 +443,10 @@ en:
           email_subject: "%{applicant_nickname} wants to join your initiative"
           notification_title: <a href="%{applicant_profile_url}">%{applicant_nickname}</a> applied for the promoter committee of your initiative <a href="%{resource_url}">%{resource_title}</a>. To accept or reject click <a href="%{resource_url}/edit">here</a>.
       form:
-        add_documents: Add documents
+        add_attachments: Add attachments
         add_image: Add image
-        attachment_legend: "(Optional) Add an attachment"
-        edit_documents: Edit documents
+        attachment_legend: Add a document or an image
+        edit_attachments: Edit attachments
         edit_image: Edit image
         image_legend: "(Optional) Add an image"
       index:
@@ -530,9 +535,7 @@ en:
           phone_number: Phone Number
           place_date: Place, Date
           postal_code: Postal Code/ZIP
-          print: Print
           province: Province/State
-          section: 'If requested by the organization, please print and fill out this form to submit where indicated:'
           signature: Signature
         result:
           answer_title: This initiative has been answered.
@@ -554,7 +557,6 @@ en:
           other: " signatures"
         vote_cabin:
           already_voted: Already signed
-          verification_required: Verify your account to sign the initiative
           vote: Sign
           votes_blocked: Signing disabled
         votes_count:
@@ -601,13 +603,42 @@ en:
         success: The initiative has been successfully updated.
     menu:
       initiatives: Initiatives
+    open_data:
+      help:
+        initiatives:
+          answer: The answer that this initiative has received (if any)
+          answer_url: The URL of the answer (if any)
+          answered_at: The date of the answer (if any)
+          area: The area of this initiative
+          authors: The authors of this initiative
+          comments_count: The number of comments that this initiative has
+          created_at: The date this space was created
+          description: The description of the initiative
+          first_progress_notification_at: The date when the first progress notification was sent
+          follows_count: The number of users following this space
+          hashtag: The initiative hashtag, used for Twitter/X
+          offline_votes: The number of signatures that this inititative received outside of this platform
+          online_votes: The number of signatures that this initiative received online (directly through the platform)
+          published_at: The date this space was published
+          reference: The unique reference of the space
+          scope: The scope of the initiative
+          second_progress_notification_at: The date when the second progress notification was sent
+          signature_end_date: The date when the signature collection period ends
+          signature_start_date: The date when the signature collection period started
+          signature_type: The type of signature collection (online or in-person)
+          signatures: The number of signatures that this initiative has
+          state: The state that this initiative has in this moment
+          title: The title of the initiative
+          type: The type of the initiative
+          updated_at: The last date this space was updated
+          url: The URL of the space
     resources:
       initiative:
         actions:
           comment: Comment
       initiatives_type:
         actions:
-          create: Create
+          create: Create an initiative
           title: Actions
           vote: Sign
   layouts:

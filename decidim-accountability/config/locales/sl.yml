@@ -8,8 +8,6 @@ sl:
         description: Opis
         end_date: Končni datum
         progress: Napredek
-        project_ids: Vključeni projekti
-        proposals: Vključeni predlogi
         start_date: Začetni datum
         title: Naslov
         updated_at: Posodobljeno
@@ -87,11 +85,6 @@ sl:
           fields:
             entry_date: Datum
       results:
-        filters:
-          all: Vsi
-        home:
-          categories_label: Kategorije
-          subcategories_label: Podkategorije
         search:
           search: Išči dejanja
     components:

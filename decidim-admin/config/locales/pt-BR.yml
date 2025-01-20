@@ -202,10 +202,11 @@ pt-BR:
         verify: Verificar
       admin_terms_of_service:
         accept:
+          error: Houve um erro ao aceitar os termos de serviço de administrador.
           success: Ótimo! Você aceitou os termos de uso do administrador.
         actions:
           accept: Concordo com estes termos
-          are_you_sure: Tem certeza que deseja negar os termos de Serviço para administrador? 
+          are_you_sure: Tem certeza que deseja negar os termos de Serviço para administrador?
           refuse: Recusar os termos de administrador
           title: "Concordo com os termos de serviço\n"
         required_review:
@@ -287,6 +288,7 @@ pt-BR:
       block_user:
         new:
           action: Bloquear conta e enviar justificativa
+          already_reported_html: Continuar com essa ação também resultará na ocultação o conteúdo de todos os participantes.
           description: Bloquear um usuário irá tornar sua conta inutilizável. Você pode fornecer em sua justificação quaisquer diretrizes sobre como você poderia considerar desbloquear o usuário.
           justification: Justificativa
           title: Bloquear usuário %{name}
@@ -317,9 +319,6 @@ pt-BR:
           error: Ocorreu um erro ao criar esse componente.
           success: Componente criado com sucesso.
           success_landing_page: Componente criado com sucesso. Você pode adicionar um bloco de conteúdo para este componente na página inicial do espaço. Acesse <a href="%{landing_page_path}">Página inicial</a> para configurá-la.
-        destroy:
-          error: Ocorreu um erro ao destruir esse componente.
-          success: Componente excluído com sucesso.
         edit:
           title: Editar componente
           update: Atualizar
@@ -327,12 +326,15 @@ pt-BR:
           default_step_settings: Configurações de etapa padrão
           global_settings: Configurações globais
           step_settings: Configurações de etapa
+        hide:
+          success: O componente foi escondido do menu com sucesso.
         index:
           add: Adicionar componente
           headers:
             actions: Ações
             name: Nome do componente
             type: Tipo de componente
+            visibility: Visibilidade
         new:
           add: Adicionar componente
           title: 'Adicionar componente: %{name}'
@@ -344,9 +346,15 @@ pt-BR:
         update:
           error: Ocorreu um erro ao atualizar este componente.
           success: O componente foi atualizado com sucesso.
+        visibility_label:
+          menu_hidden: Menu escondido
+          published: Publicado
+          unpublished: Não publicado
       conflicts:
         attempts: Tentativas
         'false': 'Não'
+        index:
+          text: Pesquisar por e-mail, nome ou apelido do usuário.
         managed_user_name: Usuário gerenciado
         solved: Resolvido
         title: Conflitos de verificação
@@ -393,8 +401,6 @@ pt-BR:
           JSON: JSON
         notice: Sua exportação está atualmente em progresso. Você receberá um e-mail quando estiver completa.
       filters:
-        category_id_eq:
-          label: Categoria
         filter_label: Filtro
         invitation_accepted_at_present:
           label: Convite aceito
@@ -442,8 +448,6 @@ pt-BR:
           values:
             'false': Publicado
             'true': Não publicado
-        scope_id_eq:
-          label: Escopo
         search_label: Buscar
         search_placeholder:
           name_or_nickname_or_email_cont: Pesquise %{collection} por e-mail, nome ou apelido.
@@ -629,12 +633,8 @@ pt-BR:
             plural: Plural
         share_token:
           fields:
-            created_at: Criado em
             expires_at: Expira em
-            last_used_at: Última uso
             times_used: Tempo Usado
-            token: Token
-            user: Criado por
         static_page:
           fields:
             created_at: Criado em
@@ -902,10 +902,6 @@ pt-BR:
           title: Editar permissões
         update:
           success: Permissões atualizadas com sucesso.
-      resources:
-        index:
-          headers:
-            scope: Escopo
       scope_types:
         create:
           error: Ocorreu um erro ao criar um novo tipo de âmbito.
@@ -939,16 +935,7 @@ pt-BR:
           success: Âmbito atualizado com sucesso
       share_tokens:
         actions:
-          confirm_destroy: Você tem certeza que quer excluir este token?
           destroy: Excluir
-          share: Compartilhar
-        destroy:
-          error: Houve um problema ao destruir o token.
-          success: Token excluído com sucesso.
-        share_tokens:
-          empty: Não há tokens ativos.
-          help: Esses tokens são usados para compartilhar publicamente esse recurso não publicado para qualquer usuário. Eles estarão ocultos quando o recurso estiver publicado. Clique no ícone de compartilhamento do token para visitar a URL compartilhável.
-          title: Compartilhar tokens
       shared:
         gallery:
           add_images: Adicione imagens
@@ -997,7 +984,35 @@ pt-BR:
           error: Ocorreu um erro ao atualizar esta página.
           success: Página atualizada com sucesso.
       taxonomies:
-        count: Contagem
+        edit:
+          back: Retornar
+          new_item: Novo item
+        table:
+          to_next_page: Arraste para a próxima página
+          to_prev_page: Arraste sobre a página anterior
+      taxonomy_filters:
+        actions:
+          new_taxonomy_filter: Novo filtro de taxonomia
+        create:
+          success: Filtro de taxonomia criado com sucesso.
+        edit:
+          back: Retornar
+        new:
+          back: Voltar
+          create: Criar filtro de taxonomia
+          title: Novo filtro de taxonomia
+        table:
+          actions: Ações
+          destroy: Deletar
+          edit: Editar
+      taxonomy_items:
+        edit:
+          title: Editar item em %{taxonomy}
+          update: Atualizar item
+        new:
+          create: Criar item
+          none: Nenhum
+          title: Novo item em %{taxonomy}
       titles:
         admin_log: Log de administração
         area_types: Tipos de área

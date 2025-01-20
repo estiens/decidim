@@ -9,29 +9,29 @@ module Decidim
       class AssemblyForm < Form
         include TranslatableAttributes
         include Decidim::HasUploadValidations
-        include Decidim::Admin::HasTaxonomyFormAttributes
+        include Decidim::HasTaxonomyFormAttributes
 
         CREATED_BY = %w(city_council public others).freeze
 
         mimic :assembly
 
-        translatable_attribute :composition, String
-        translatable_attribute :closing_date_reason, String
+        translatable_attribute :composition, Decidim::Attributes::RichText
+        translatable_attribute :closing_date_reason, Decidim::Attributes::RichText
         translatable_attribute :created_by_other, String
-        translatable_attribute :description, String
+        translatable_attribute :description, Decidim::Attributes::RichText
         translatable_attribute :developer_group, String
-        translatable_attribute :internal_organisation, String
+        translatable_attribute :internal_organisation, Decidim::Attributes::RichText
         translatable_attribute :local_area, String
         translatable_attribute :meta_scope, String
         translatable_attribute :participatory_scope, String
         translatable_attribute :participatory_structure, String
-        translatable_attribute :purpose_of_action, String
-        translatable_attribute :short_description, String
-        translatable_attribute :special_features, String
+        translatable_attribute :purpose_of_action, Decidim::Attributes::RichText
+        translatable_attribute :short_description, Decidim::Attributes::RichText
+        translatable_attribute :special_features, Decidim::Attributes::RichText
         translatable_attribute :subtitle, String
         translatable_attribute :target, String
         translatable_attribute :title, String
-        translatable_attribute :announcement, String
+        translatable_attribute :announcement, Decidim::Attributes::RichText
 
         attribute :created_by, String
         attribute :facebook_handler, String
@@ -42,7 +42,6 @@ module Decidim
         attribute :twitter_handler, String
         attribute :youtube_handler, String
 
-        attribute :decidim_assemblies_type_id, Integer
         attribute :area_id, Integer
         attribute :parent_id, Integer
         attribute :participatory_processes_ids, Array[Integer]
@@ -73,7 +72,6 @@ module Decidim
         validates :slug, presence: true, format: { with: Decidim::Assembly.slug_format }
 
         validate :slug_uniqueness
-        validate :same_type_organization, if: ->(form) { form.decidim_assemblies_type_id }
 
         validates :created_by_other, translatable_presence: true, if: ->(form) { form.created_by == "others" }
         validates :title, :subtitle, :description, :short_description, translatable_presence: true
@@ -108,11 +106,6 @@ module Decidim
           @area ||= current_organization.areas.find_by(id: area_id)
         end
 
-        def assembly_types_for_select
-          @assembly_types_for_select ||= organization_assembly_types
-                                             &.map { |type| [translated_attribute(type.title), type.id] }
-        end
-
         def created_by_for_select
           CREATED_BY.map do |creator|
             [
@@ -132,15 +125,7 @@ module Decidim
                                         &.sort_by { |arr| arr[0] }
         end
 
-        def assembly_type
-          AssembliesType.find_by(id: decidim_assemblies_type_id)
-        end
-
         private
-
-        def organization_assembly_types
-          AssembliesType.where(organization: current_organization)
-        end
 
         def organization_participatory_processes
           Decidim.find_participatory_space_manifest(:participatory_processes)
@@ -158,13 +143,6 @@ module Decidim
                         .any?
 
           errors.add(:slug, :taken)
-        end
-
-        def same_type_organization
-          return unless assembly_type
-          return if assembly_type.organization == current_organization
-
-          errors.add(:assembly_type, :invalid)
         end
       end
     end

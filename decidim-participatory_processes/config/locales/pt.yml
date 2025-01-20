@@ -102,7 +102,6 @@ pt:
           categories: Categorias
           components: Componentes
           moderations: Moderações
-          private_users: Participantes privados
           process_admins: Administradores de processo
           steps: Fases
       models:
@@ -348,8 +347,6 @@ pt:
           name: Processos realçados
       index:
         title: Processos participativos
-      last_activity:
-        new_participatory_process: Novo processo participativo
       participatory_process_steps:
         index:
           back_to_process: Retroceder à página do processo

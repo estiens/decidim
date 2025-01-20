@@ -28,12 +28,16 @@ module Decidim
 
     # Public: fetches the participatory space of the resource's component or from the resource itself
     def participatory_space
-      @participatory_space ||= @reportable.component&.participatory_space || @reportable.try(:participatory_space)
+      @participatory_space ||= if reportable.class.respond_to?(:participatory_space?)
+                                 reportable
+                               else
+                                 reportable.component&.participatory_space || reportable.try(:participatory_space)
+                               end
     end
 
     # Public: updates the reported content for the moderation object associated with resource
     def update_reported_content!
-      moderation.update!(reported_content: @reportable.reported_searchable_content_text)
+      moderation.update!(reported_content: reportable.reported_searchable_content_text)
     end
 
     # Public: creates a new report for the given resource, having a basic set of options
@@ -68,7 +72,7 @@ module Decidim
     end
 
     # Public: hides the resource
-    def hide!
+    def hide_with_admin_log!
       Decidim.traceability.perform_action!(
         "hide",
         moderation,
@@ -77,6 +81,13 @@ module Decidim
           reportable_type: @reportable.class.name
         }
       ) do
+        hide!
+      end
+    end
+
+    # Public: hides the resources
+    def hide!
+      Decidim.traceability.perform_action_without_log!(current_user) do
         @reportable.moderation.update!(hidden_at: Time.current)
         @reportable.try(:touch)
       end

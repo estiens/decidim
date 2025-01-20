@@ -96,6 +96,7 @@ de:
         duplicate: Duplizieren
         edit: Bearbeiten
         import_process: Importieren
+        menu_hidden: Verbergen
         moderate: Moderieren
         new_process: Neuer Beteiligungsprozess
         new_process_group: Neue Prozessgruppe
@@ -126,7 +127,6 @@ de:
           info: Über diesen Prozess
           landing_page: Startseite
           moderations: Moderationen
-          private_users: Private Benutzer
           process_admins: Benutzer verarbeiten
           steps: Schritte
       models:
@@ -359,6 +359,10 @@ de:
         description: Anzahl der Beteiligungsprozesse in dieser Organisation
         object: Beteiligungsprozesse
         title: Beteiligungsprozesse
+    open_data:
+      help:
+        participatory_processes:
+          slug: Der URL-Slug des Prozesses (verwendet für Identifikationszwecke in der URL)
     participatory_process_groups:
       content_blocks:
         extra_data:
@@ -422,10 +426,12 @@ de:
         participatory_processes:
           form:
             announcement_help: Der Text, den Sie hier eingeben, wird dem Benutzer direkt unter den Prozessinformationen angezeigt.
+            define_taxonomy_filters: Bitte definieren Sie einige Filter für diesen partizipativen Bereich, bevor Sie diese Einstellung verwenden.
             duration: Dauer
             filters: Filter
             images: Bilder
             metadata: Metadaten
+            no_taxonomy_filters_found: Keine Klassifizierungsfilter gefunden.
             other: Andere
             related_processes: Ähnliche Beteiligungsprozesse
             scope_type_max_depth_help: Beschränken Sie die Bereichs-Filtertiefe; der Filter zeigt nur Ergebnisse von Allgemein bis zum ausgewählten Bereichstyp an.
@@ -433,6 +439,7 @@ de:
             select_participatory_process_type: Wählen Sie einen Prozesstyp aus
             select_process_group: Wählen Sie eine Prozessgruppe aus
             slug_help_html: 'URL-Slugs werden zum Generieren der URLs verwendet, die auf diesen Prozess verweisen. Akzeptiert werden nur Buchstaben, Zahlen und Bindestriche und es muss mit einem Buchstaben beginnen. Beispiel: %{url}'
+            taxonomies: Klassifizierungen
             title: Allgemeine Information
             visibility: Sichtbarkeit
       content_blocks:
@@ -447,7 +454,7 @@ de:
       index:
         title: Beteiligungsprozesse
       last_activity:
-        new_participatory_process: Neuer partizipativer Prozess
+        new_participatory_process: 'Neuer partizipativer Prozess:'
       pages:
         home:
           highlighted_processes:

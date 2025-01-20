@@ -8,8 +8,6 @@ id:
         description: Deskripsi
         end_date: Tanggal akhir
         progress: Kemajuan
-        project_ids: Termasuk proyek
-        proposals: Termasuk proposal
         start_date: Mulai tanggal
         title: Judul
         updated_at: Diperbarui pada
@@ -104,15 +102,8 @@ id:
         count:
           results_count:
             other: "%{count} hasil"
-        filters:
-          all: Semua
-        home:
-          categories_label: Kategori
-          subcategories_label: Subkategori
         home_header:
           global_status: Status eksekusi global
-        nav_breadcrumb:
-          global: Eksekusi global
         search:
           search: Cari tindakan
         show:

@@ -14,13 +14,15 @@ on:
 jobs:
   build_app:
     name: Build app
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: "!startsWith(github.head_ref, 'chore/l10n')"
     timeout-minutes: 60
     env:
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
       DATABASE_HOST: localhost
+      DECIDIM_SPAM_DETECTION_BACKEND_RESOURCE: "memory"
+      DECIDIM_SPAM_DETECTION_BACKEND_USER: "memory"
     services:
       postgres:
         image: postgres:14
@@ -45,6 +47,9 @@ jobs:
           node-version: ${{ inputs.node_version }}
           cache: 'npm'
           cache-dependency-path: ./package-lock.json
+      - run: npm config set fetch-retries 5 && npm config set fetch-retry-mintimeout 20000 && npm config set fetch-retry-maxtimeout 120000
+        name: Tune NPM configuration
+        shell: "bash"
       - uses: actions/cache@v4
         id: app-cache
         with:

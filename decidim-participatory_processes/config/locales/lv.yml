@@ -92,7 +92,6 @@ lv:
           categories: Kategorijas
           components: Komponenti
           moderations: Moderācijas
-          private_users: Privātie dalībnieki
           process_admins: Procesa administratori
           steps: Fāzes
       models:
@@ -316,8 +315,6 @@ lv:
           name: Izceltie procesi
       index:
         title: Līdzdalības procesi
-      last_activity:
-        new_participatory_process: Jauns līdzdalības process
       participatory_processes:
         filters:
           counters:

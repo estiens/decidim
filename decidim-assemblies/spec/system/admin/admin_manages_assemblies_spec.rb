@@ -7,6 +7,7 @@ describe "Admin manages assemblies" do
   include_context "with taxonomy filters context"
 
   let(:space_manifest) { "assemblies" }
+  let!(:another_taxonomy_filter) { create(:taxonomy_filter, root_taxonomy: another_root_taxonomy, space_manifest:, space_filter: true) }
   let(:resource_controller) { Decidim::Assemblies::Admin::AssembliesController }
   let(:model_name) { assembly.class.model_name }
 
@@ -25,7 +26,7 @@ describe "Admin manages assemblies" do
 
       it "hides the private user menu entry" do
         within_admin_sidebar_menu do
-          expect(page).to have_content("Private participants")
+          expect(page).to have_content("Members")
         end
       end
     end
@@ -35,7 +36,7 @@ describe "Admin manages assemblies" do
 
       it "shows the private user menu entry" do
         within_admin_sidebar_menu do
-          expect(page).to have_no_content("Private participants")
+          expect(page).to have_no_content("Members")
         end
       end
     end
@@ -59,6 +60,7 @@ describe "Admin manages assemblies" do
     end
 
     it_behaves_like "having a rich text editor for field", "#closing_date_reason_div", "content"
+    it_behaves_like "having no taxonomy filters defined"
 
     it "creates a new assembly", versioning: true do
       within ".new_assembly" do
@@ -96,8 +98,7 @@ describe "Admin manages assemblies" do
       expect(last_assembly.taxonomies).to contain_exactly(taxonomy)
 
       within "[data-content]" do
-        expect(page).to have_current_path decidim_admin_assemblies.assemblies_path(q: { parent_id_eq: parent_assembly&.id })
-        expect(page).to have_content(translated(attributes[:title]))
+        expect(page).to have_current_path decidim_admin_assemblies.components_path(last_assembly)
       end
 
       visit decidim_admin.root_path
@@ -127,7 +128,7 @@ describe "Admin manages assemblies" do
 
       expect(page).to have_admin_callout("successfully")
       expect(page).to have_select("taxonomies-#{taxonomy_filter.id}", selected: decidim_sanitize_translated(taxonomy.name))
-      expect(page).to have_select("taxonomies-#{another_taxonomy_filter.id}", selected: "Select from \"#{decidim_sanitize_translated(another_root_taxonomy.name)}\"")
+      expect(page).to have_select("taxonomies-#{another_taxonomy_filter.id}", selected: "Please select an option")
       expect(assembly3.reload.taxonomies).to contain_exactly(taxonomy)
 
       hero_blob = assembly3.hero_image.blob
@@ -156,41 +157,10 @@ describe "Admin manages assemblies" do
     describe "listing parent assemblies" do
       it_behaves_like "filtering collection by published/unpublished"
       it_behaves_like "filtering collection by private/public"
-
-      context "when filtering by assemblies type" do
-        include_context "with filterable context"
-
-        let!(:assemblies_type1) { create(:assemblies_type) }
-        let!(:assemblies_type2) { create(:assemblies_type) }
-
-        Decidim::AssembliesType.all.each do |assemblies_type|
-          i18n_assemblies_type = assemblies_type.name[I18n.locale.to_s]
-
-          context "when filtering collection by assemblies_type: #{i18n_assemblies_type}" do
-            let!(:assembly1) { create(:assembly, organization:, assemblies_type: assemblies_type1) }
-            let!(:assembly2) { create(:assembly, organization:, assemblies_type: assemblies_type2) }
-
-            it_behaves_like "a filtered collection", options: "Assembly type", filter: i18n_assemblies_type do
-              let(:in_filter) { translated(assembly_with_type(type).title) }
-              let(:not_in_filter) { translated(assembly_without_type(type).title) }
-            end
-          end
-        end
-
-        it_behaves_like "paginating a collection"
-
-        def assembly_with_type(type)
-          Decidim::Assembly.find_by(decidim_assemblies_type_id: type)
-        end
-
-        def assembly_without_type(type)
-          Decidim::Assembly.where.not(decidim_assemblies_type_id: type).sample
-        end
-      end
     end
   end
 
-  context "when managing child assemblies" do
+  context "when navigating child assemblies" do
     let!(:parent_assembly) { create(:assembly, organization:) }
     let!(:child_assembly) { create(:assembly, :with_content_blocks, organization:, parent: parent_assembly, blocks_manifests: [:announcement]) }
     let(:assembly) { child_assembly }
@@ -199,24 +169,23 @@ describe "Admin manages assemblies" do
       switch_to_host(organization.host)
       login_as user, scope: :user
       visit decidim_admin_assemblies.assemblies_path
-      within "tr", text: translated(parent_assembly.title) do
-        click_on "Assemblies"
-      end
     end
 
-    it_behaves_like "manage assemblies"
-    it_behaves_like "creating an assembly"
-    it_behaves_like "manage assemblies announcements"
-
     describe "listing child assemblies" do
-      it_behaves_like "filtering collection by published/unpublished" do
-        let!(:published_space) { child_assembly }
-        let!(:unpublished_space) { create(:assembly, :unpublished, parent: parent_assembly, organization:) }
-      end
+      it "expands the parent assembly" do
+        expect(page).to have_no_content(translated(child_assembly.title))
 
-      it_behaves_like "filtering collection by private/public" do
-        let!(:public_space) { child_assembly }
-        let!(:private_space) { create(:assembly, :private, parent: parent_assembly, organization:) }
+        within "tr", text: translated(parent_assembly.title) do
+          find("a[data-arrow-down]").click
+        end
+
+        expect(page).to have_content(translated(child_assembly.title))
+
+        within "tr", text: translated(parent_assembly.title) do
+          find("a[data-arrow-up]").click
+        end
+
+        expect(page).to have_no_content(translated(child_assembly.title))
       end
     end
   end

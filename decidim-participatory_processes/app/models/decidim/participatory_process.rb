@@ -24,6 +24,8 @@ module Decidim
     include Decidim::TranslatableResource
     include Decidim::HasArea
     include Decidim::FilterableResource
+    include Decidim::SoftDeletable
+    include Decidim::ShareableWithToken
 
     translatable_fields :title, :subtitle, :short_description, :description, :developer_group, :meta_scope, :local_area,
                         :target, :participatory_scope, :participatory_structure, :announcement
@@ -98,8 +100,6 @@ module Decidim
         )
       end
     }
-
-    scope :with_any_type, ->(*type_ids) { where(decidim_participatory_process_type_id: type_ids) }
 
     searchable_fields({
                         scope_id: :decidim_scope_id,
@@ -201,11 +201,15 @@ module Decidim
       :admin
     end
 
+    def shareable_url(share_token)
+      EngineRouter.main_proxy(self).participatory_process_url(self, share_token: share_token.token)
+    end
+
     # Allow ransacker to search for a key in a hstore column (`title`.`en`)
     ransacker_i18n :title
 
     def self.ransackable_scopes(_auth_object = nil)
-      [:with_date, :with_any_area, :with_any_scope, :with_any_type]
+      [:with_date, :with_any_taxonomies]
     end
 
     def self.ransackable_attributes(auth_object = nil)

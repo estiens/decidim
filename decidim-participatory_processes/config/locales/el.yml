@@ -120,7 +120,6 @@ el:
           categories: Κατηγορίες
           components: Στοιχεία
           moderations: Εποπτεύσεις
-          private_users: Ιδιωτικοί συμμετέχοντες
           process_admins: Διαχειριστές διαδικασιών
           steps: Φάσεις
       models:
@@ -402,8 +401,6 @@ el:
           name: Επισημασμένες διαδικασίες
       index:
         title: Διαδικασίες συμμετοχής
-      last_activity:
-        new_participatory_process: Νέα διαδικασία συμμετοχής
       participatory_process_steps:
         index:
           back_to_process: Πίσω στην σελίδα της διαδικασίας

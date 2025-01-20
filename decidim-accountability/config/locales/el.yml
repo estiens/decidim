@@ -7,10 +7,7 @@ el:
         decidim_scope_id: Πεδίο εφαρμογής
         description: Περιγραφή
         end_date: Ημερομηνία λήξης
-        meetings_ids: Συμπεριλαμβανόμενες συναντήσεις
         progress: Πρόοδος
-        project_ids: Έργα που περιλαμβάνονται
-        proposals: Προτάσεις που περιλαμβάνονται
         start_date: Ημερομηνία έναρξης
         title: Τίτλος
         updated_at: Ενημερώθηκε στις
@@ -98,8 +95,6 @@ el:
           create:
             invalid: Υπήρξε ένα πρόβλημα κατά τη δημιουργία αυτού του αποτελέσματος.
             success: Το αποτέλεσμα δημιουργήθηκε με επιτυχία.
-          destroy:
-            success: Το αποτέλεσμα διαγράφηκε με επιτυχία.
           edit:
             title: Επεξεργασία αποτελέσματος
             update: Ενημέρωση αποτελέσματος
@@ -186,12 +181,10 @@ el:
       models:
         result:
           fields:
-            category: Κατηγορία
             created_at: Δημιουργήθηκε
             end_date: Ημερομηνία λήξης
             id: Αναγνωριστικό ID
             progress: Πρόοδος
-            scope: Πεδίο εφαρμογής
             start_date: Ημερομηνία έναρξης
             status: Κατάσταση
             title: Τίτλος
@@ -210,15 +203,8 @@ el:
           results_count:
             one: 1 αποτέλεσμα
             other: "%{count} αποτελέσματα"
-        filters:
-          all: Όλα
-        home:
-          categories_label: Κατηγορίες
-          subcategories_label: Υποκατηγορίες
         home_header:
           global_status: Κατάσταση καθολικής εκτέλεσης
-        nav_breadcrumb:
-          global: Καθολική εκτέλεση
         search:
           search: Αναζήτηση ενεργειών
         show:
@@ -229,10 +215,6 @@ el:
     admin:
       filters:
         results:
-          category_id_eq:
-            label: Κατηγορία
-          scope_id_eq:
-            label: Πεδίο εφαρμογής
           status_id_eq:
             label: Κατάσταση
     components:

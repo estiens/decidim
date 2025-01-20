@@ -100,7 +100,6 @@ ar:
           categories: الاقسام
           components: المكونات
           moderations: الإعتدال
-          private_users: المشاركون من القطاع الخاص
           process_admins: مدراء العملية
           steps: المراحل
       models:
@@ -308,8 +307,6 @@ ar:
           name: عمليات مميزة
       index:
         title: العمليات التشاركية
-      last_activity:
-        new_participatory_process: عملية تشاركية جديدة
       participatory_processes:
         filters:
           counters:

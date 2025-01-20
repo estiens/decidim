@@ -84,7 +84,6 @@ id:
           categories: Kategori
           components: Komponen
           moderations: Moderasi
-          private_users: Pengguna Pribadi
           process_admins: Memproses pengguna
           steps: Tangga
       models:
@@ -285,8 +284,6 @@ id:
           name: Proses yang disorot
       index:
         title: Proses partisipatif
-      last_activity:
-        new_participatory_process: Proses partisipatif baru
       participatory_processes:
         filters:
           counters:

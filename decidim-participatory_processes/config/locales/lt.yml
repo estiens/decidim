@@ -127,7 +127,6 @@ lt:
           components: Komponentai
           landing_page: Pagrindinis puslapis
           moderations: Moderavimai
-          private_users: Privatūs dalyviai
           process_admins: Proceso administratoriai
           steps: Etapai
       models:
@@ -431,8 +430,6 @@ lt:
           name: Susiję procesai
       index:
         title: Dalyvaujamieji procesai
-      last_activity:
-        new_participatory_process: Naujas dalyvaujamasis procesas
       pages:
         home:
           highlighted_processes:

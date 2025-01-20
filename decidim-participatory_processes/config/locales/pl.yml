@@ -132,7 +132,6 @@ pl:
           info: O tym procesie
           landing_page: Strona startowa
           moderations: Moderacje
-          private_users: Użytkownicy prywatni
           process_admins: Użytkownicy procesu
           steps: Etapy
       models:
@@ -453,8 +452,6 @@ pl:
           name: Powiązane procesy
       index:
         title: Procesy partycypacyjne
-      last_activity:
-        new_participatory_process: Nowy proces partycypacyjny
       pages:
         home:
           highlighted_processes:

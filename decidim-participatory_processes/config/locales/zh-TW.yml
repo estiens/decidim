@@ -117,7 +117,6 @@ zh-TW:
           categories: 類別
           components: 组件
           moderations: 版主
-          private_users: 私人參與者
           process_admins: 程序管理員
           steps: 分類
       models:
@@ -398,8 +397,6 @@ zh-TW:
           name: 精選程序
       index:
         title: 參與程序
-      last_activity:
-        new_participatory_process: 新的參與程序
       participatory_process_steps:
         index:
           back_to_process: 返回程序頁

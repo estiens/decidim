@@ -103,7 +103,6 @@ tr:
           components: Bileşenler
           info: Süreç Hakkında
           moderations: Denetimler
-          private_users: Özel Kullanıcılar
           process_admins: İşlemi gerçekleştiren kullanıcılar
           steps: adımlar
       models:
@@ -352,8 +351,6 @@ tr:
           name: Vurgulanan süreçler
       index:
         title: Katılımcı süreçler
-      last_activity:
-        new_participatory_process: Yeni katılımcı süreç
       participatory_process_steps:
         index:
           back_to_process: Süreç sayfasına geri dön

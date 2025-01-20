@@ -7,10 +7,9 @@ describe "Proposals" do
   include_context "with a component"
   let(:manifest_name) { "proposals" }
 
-  let!(:category) { create(:category, participatory_space: participatory_process) }
-  let!(:scope) { create(:scope, organization:) }
+  let(:root_taxonomy) { create(:taxonomy, organization:) }
+  let!(:taxonomy) { create(:taxonomy, parent: root_taxonomy, organization:) }
   let!(:user) { create(:user, :confirmed, organization:) }
-  let(:scoped_participatory_process) { create(:participatory_process, :with_steps, organization:, scope:) }
 
   let(:address) { "Some address" }
   let(:latitude) { 40.1234 }
@@ -36,11 +35,7 @@ describe "Proposals" do
     let!(:component) do
       create(:proposal_component,
              manifest:,
-             participatory_space: participatory_process,
-             settings: {
-               scopes_enabled: true,
-               scope_id: participatory_process.scope&.id
-             })
+             participatory_space: participatory_process)
     end
 
     let!(:proposals) { create_list(:proposal, 3, component:) }
@@ -73,24 +68,13 @@ describe "Proposals" do
       expect(page).to have_content(proposal.published_at.strftime("%d/%m/%Y %H:%M"))
     end
 
-    context "when process is not related to any scope" do
-      let!(:proposal) { create(:proposal, component:, scope:) }
+    context "when proposal has a taxonomies" do
+      let!(:proposal) { create(:proposal, component:, taxonomies: [taxonomy]) }
 
-      it "can be filtered by scope" do
+      it "can be filtered by taxonomy" do
         visit_component
         click_on proposal_title
-        expect(page).to have_content(translated(scope.name))
-      end
-    end
-
-    context "when process is related to a child scope" do
-      let!(:proposal) { create(:proposal, component:, scope:) }
-      let(:participatory_process) { scoped_participatory_process }
-
-      it "does not show the scope name" do
-        visit_component
-        click_on proposal_title
-        expect(page).to have_no_content(translated(scope.name))
+        expect(page).to have_content(decidim_sanitize_translated(taxonomy.name))
       end
     end
 
@@ -341,7 +325,7 @@ describe "Proposals" do
         visit_component
         click_on proposal_title
 
-        within ".layout-author" do
+        within ".layout-author", match: :first do
           expect(page).to have_no_content("Accepted")
         end
         expect(page).to have_no_content("This proposal has been accepted")
@@ -405,6 +389,45 @@ describe "Proposals" do
         expect(page).to have_css("[id^='proposals__proposal']", text: lucky_proposal_title)
         expect(page).to have_css("[id^='proposals__proposal']", text: unlucky_proposal_title)
         expect(page).to have_author(lucky_proposal.creator_author.name)
+      end
+    end
+
+    context "when maps are enabled" do
+      let(:component) { create(:proposal_component, :with_geocoding_enabled, participatory_space: participatory_process) }
+
+      let!(:author_proposals) { create_list(:proposal, 2, :participant_author, :published, component:) }
+      let!(:group_proposals) { create_list(:proposal, 2, :user_group_author, :published, component:) }
+      let!(:official_proposals) { create_list(:proposal, 2, :official, :published, component:) }
+
+      # We are providing a list of coordinates to make sure the points are scattered all over the map
+      # otherwise, there is a chance that markers can be clustered, which may result in a flaky spec.
+      before do
+        coordinates = [
+          [-95.501705376541395, 95.10059236654689],
+          [-95.501705376541395, -95.10059236654689],
+          [95.10059236654689, -95.501705376541395],
+          [95.10059236654689, 95.10059236654689],
+          [142.15275006889419, -33.33377235135252],
+          [33.33377235135252, -142.15275006889419],
+          [-33.33377235135252, 142.15275006889419],
+          [-142.15275006889419, 33.33377235135252],
+          [-55.28745034772282, -35.587843900166945]
+        ]
+        Decidim::Proposals::Proposal.where(component:).geocoded.each_with_index do |proposal, index|
+          proposal.update!(latitude: coordinates[index][0], longitude: coordinates[index][1]) if coordinates[index]
+        end
+
+        visit_component
+      end
+
+      it "shows markers for selected proposals" do
+        expect(page).to have_css(".leaflet-marker-icon", count: 5)
+        within "#panel-dropdown-menu-origin" do
+          click_filter_item "Official"
+        end
+        expect(page).to have_css(".leaflet-marker-icon", count: 2)
+
+        expect_no_js_errors
       end
     end
 

@@ -218,6 +218,10 @@ ro:
         exports:
           initiatives: Inițiative
         initiatives:
+          accept:
+            success: Inițiativa a fost acceptată cu succes.
+          discard:
+            success: Inițiativa a fost anulată cu succes.
           edit:
             accept: Acceptă inițiativa
             confirm: Sigur dorești asta?
@@ -240,6 +244,12 @@ ro:
             edit: Editare
             new: Nou
             photos: Poze
+          publish:
+            success: Inițiativa a fost publicată cu succes.
+          reject:
+            success: Inițiativa a fost respinsă.
+          unpublish:
+            success: Inițiativa a fost ascunsă cu succes.
           update:
             success: Inițiativa a fost actualizată cu succes.
         initiatives_settings:
@@ -455,9 +465,7 @@ ro:
           phone_number: Număr de telefon
           place_date: Locul, data
           postal_code: Cod poștal
-          print: Tipărește
           province: Județ/stat
-          section: 'Dacă organizația solicită acest lucru, te rugăm tipărește și completează acest formular pentru a-l depune conform indicațiilor:'
           signature: Semnătură
         result:
           initiative_rejected_reason: Această inițiativă a fost respinsă din cauza lipsei de semnături.
@@ -471,7 +479,6 @@ ro:
           other: " semnături"
         vote_cabin:
           already_voted: Deja semnat
-          verification_required: Verifică-ți contul pentru a semna inițiativa
           vote: Semnare
           votes_blocked: Semnarea este dezactivată
         votes_count:
